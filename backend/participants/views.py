@@ -73,3 +73,8 @@ class SaveWinnersView(APIView):
         winners = Winner.objects.all()  # Get all winners
         serializer = WinnerSerializer(winners, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class DeleteAllWinnersView(APIView):
+    def delete(self, request, *args, **kwargs):
+        winners_deleted, _ = Winner.objects.all().delete()  # Delete all winners
+        return Response({"message": f"{winners_deleted} winners deleted successfully."}, status=status.HTTP_200_OK)
