@@ -34,7 +34,7 @@ const WinnerList: React.FC = () => {
   }, []);
 
   return (
-    <div className="mt-6 bg-blue-50 p-4 rounded-md shadow-lg">
+    <div className="mt-6 bg-blue-50 p-4 m-4 rounded-md shadow-lg">
       <h2 className="text-2xl font-semibold text-center text-blue-600">Winner Log</h2>
 
       {/* Show loading indicator while fetching */}
@@ -48,7 +48,7 @@ const WinnerList: React.FC = () => {
         <thead>
           <tr className="bg-blue-100">
             <th className="py-2 px-4 text-left border-b border-gray-200">Name</th>
-            <th className="py-2 px-4 text-left border-b border-gray-200">Email</th>
+            <th className="py-2 px-4 text-left border-b border-gray-200">Section</th>
           </tr>
         </thead>
         <tbody>
