@@ -4,6 +4,7 @@ import logo from "../assets/logo.png";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
 import Navbar from '@/components/Navbar';
 import bg from '@/assets/sss.png';
+import ReactConfetti from 'react-confetti';
 import jose from '@/assets/jose.png';
 import music from '@/assets/music.MP3';
 import Loader from '@/components/loader'; // Assuming the loader component is a named export.
@@ -24,6 +25,7 @@ const Raffle: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState('');
   const [isImageSliding, setIsImageSliding] = useState(false); // State to control image sliding
+  const [showConfetti, setShowConfetti] = useState(false);
 
   // Fetch participants
   const fetchParticipants = async () => {
@@ -115,6 +117,7 @@ const Raffle: React.FC = () => {
 
         setWinners(randomWinners);
         setLoading(false);
+        setShowConfetti(true);
         setIsDialogOpen(true);
         saveWinnersToDatabase(randomWinners);
 
@@ -123,6 +126,7 @@ const Raffle: React.FC = () => {
         });
 
         setParticipants(participants.filter(p => !randomWinners.some(winner => winner.id === p.id)));
+        setTimeout(() => setShowConfetti(false), 7000);
       }, 5500);
     }
   };
@@ -143,6 +147,7 @@ const Raffle: React.FC = () => {
       }}
       className="bg-[url('@/assets/sss.png')] bg-cover bg-center bg-no-repeat h-screen"
     >
+       {showConfetti && <ReactConfetti className=' z-50'/>}
       <Navbar />
       <div className="p-6 max-w-xl mx-auto">
         <div className="flex flex-col justify-center items-center">
@@ -154,7 +159,7 @@ const Raffle: React.FC = () => {
         <div className="mt-4">
           <label htmlFor="winnerCount" className="block text-sm font-semibold text-white">Number of Winners</label>
           <input
-            type="number"
+            type="text"
             id="winnerCount"
             value={winnerCount}
             onChange={(e) => setWinnerCount(Number(e.target.value))}
