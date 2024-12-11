@@ -39,8 +39,8 @@ class UploadCSVView(APIView):
         participants = []
         for row in csv_reader:
             if len(row) >= 2:  # Assuming CSV has 'name' and 'email'
-                name, email = row[0], row[1]
-                participant = Participant(name=name, email=email)
+                name, designation = row[0], row[1]
+                participant = Participant(name=name, designation=designation)
                 participants.append(participant)
 
         if participants:
@@ -63,7 +63,7 @@ class SaveWinnersView(APIView):
 
         return Response({"message": "Winners saved successfully"}, status=status.HTTP_201_CREATED)
     name = models.CharField(max_length=255)
-    email = models.EmailField()
+    designation = models.CharField(max_length=255)
     # Add other fields if needed, such as a reference to the event, raffle, etc.
 
     def __str__(self):

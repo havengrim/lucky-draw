@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Navbar from '@/components/Navbar';
 
 interface Participant {
   id?: number;
   name: string;
-  email: string;
+  designation: string;
 }
 
 const UploadNames: React.FC = () => {
-  const [participant, setParticipant] = useState<Participant>({ name: '', email: '' });
+  const [participant, setParticipant] = useState<Participant>({ name: '', designation: '' });
   const [message, setMessage] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [participants, setParticipants] = useState<Participant[]>([]);
@@ -49,7 +50,7 @@ const UploadNames: React.FC = () => {
         .put(`${API_BASE_URL}/participants/${participant.id}/`, participant)
         .then((response) => {
           setMessage(`Participant updated: ${response.data.name}`);
-          setParticipant({ name: '', email: '' });
+          setParticipant({ name: '', designation: '' });
           setIsEditMode(false);
           // Refresh participants list
           setParticipants((prev) =>
@@ -66,7 +67,7 @@ const UploadNames: React.FC = () => {
         .post(`${API_BASE_URL}/participants/`, participant)
         .then((response) => {
           setMessage(`Participant added: ${response.data.name}`);
-          setParticipant({ name: '', email: '' });
+          setParticipant({ name: '', designation: '' });
           // Add new participant to the list
           setParticipants((prev) => [...prev, response.data]);
         })
@@ -122,7 +123,9 @@ const UploadNames: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
+    <div>
+      <Navbar />
+      <div className="p-6 bg-gray-200">
       <h1 className="text-2xl font-bold">{isEditMode ? 'Edit Participant' : 'Upload Names'}</h1>
       
       {/* CSV Upload Section */}
@@ -150,13 +153,14 @@ const UploadNames: React.FC = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Email (Optional)</label>
+          <label className="block text-gray-700">Designation</label>
           <input
-            type="email"
-            name="email"
-            value={participant.email}
+            type="text"
+            name="designation"
+            value={participant.designation}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
           />
         </div>
         <button
@@ -174,7 +178,7 @@ const UploadNames: React.FC = () => {
         <thead>
           <tr>
             <th className="px-4 py-2 border-b text-left">Name</th>
-            <th className="px-4 py-2 border-b text-left">Email</th>
+            <th className="px-4 py-2 border-b text-left">Designation</th>
             <th className="px-4 py-2 border-b text-left">Actions</th>
           </tr>
         </thead>
@@ -182,7 +186,7 @@ const UploadNames: React.FC = () => {
           {participants.map((p) => (
             <tr key={p.id}>
               <td className="px-4 py-2 border-b">{p.name}</td>
-              <td className="px-4 py-2 border-b">{p.email}</td>
+              <td className="px-4 py-2 border-b">{p.designation}</td>
               <td className="px-4 py-2 border-b">
                 <button
                   onClick={() => handleEdit(p)}
@@ -202,6 +206,8 @@ const UploadNames: React.FC = () => {
         </tbody>
       </table>
     </div>
+    </div>
+   
   );
 };
 

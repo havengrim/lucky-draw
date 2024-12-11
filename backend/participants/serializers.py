@@ -5,8 +5,8 @@ from rest_framework import serializers
 class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant
-        fields = ['id', 'name', 'email', 'created_at']
+        fields = ['id', 'name', 'designation', 'created_at']
 class WinnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Winner
-        fields = ['id', 'name', 'email']
+        fields = ['id', 'name', 'designation']

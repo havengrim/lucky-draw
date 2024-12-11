@@ -1,10 +1,11 @@
+import Navbar from '@/components/Navbar';
 import React, { useEffect, useState } from 'react';
 
 // Define the Participant interface
 interface Participant {
   id: number;
   name: string;
-  email: string;
+  designation: string;
 }
 
 const WinnerList: React.FC = () => {
@@ -34,7 +35,9 @@ const WinnerList: React.FC = () => {
   }, []);
 
   return (
-    <div className="mt-6 bg-blue-50 p-4 m-4 rounded-md shadow-lg">
+    <div className='bg-gray-200 h-screen'>
+      <Navbar />
+        <div className="mt-6 bg-blue-50 p-4 rounded-md shadow-lg m-4">
       <h2 className="text-2xl font-semibold text-center text-blue-600">Winner Log</h2>
 
       {/* Show loading indicator while fetching */}
@@ -48,7 +51,7 @@ const WinnerList: React.FC = () => {
         <thead>
           <tr className="bg-blue-100">
             <th className="py-2 px-4 text-left border-b border-gray-200">Name</th>
-            <th className="py-2 px-4 text-left border-b border-gray-200">Section</th>
+            <th className="py-2 px-4 text-left border-b border-gray-200">Designation</th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +63,7 @@ const WinnerList: React.FC = () => {
               >
                 <td className="py-2 px-4 border-b border-gray-200">{winner.name}</td>
                 <td className="py-2 px-4 border-b border-gray-200">
-                  {winner.email || 'No Email'}
+                  {winner.designation || 'No Designation'}
                 </td>
               </tr>
             ))
@@ -74,6 +77,8 @@ const WinnerList: React.FC = () => {
         </tbody>
       </table>
     </div>
+    </div>
+    
   );
 };
 

@@ -7,32 +7,26 @@
   }
 }
 
-body {
-  background-image: url('./assets/sss.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-}
 
-@keyframes shuffleCard {
+
+@keyframes rumble {
   0% {
-    transform: translateX(0) rotate(0deg);
+    transform: translateX(0);
   }
   25% {
-    transform: translateX(20px) rotate(15deg);
+    transform: translateX(-5px);
   }
   50% {
-    transform: translateX(-20px) rotate(-15deg);
+    transform: translateX(5px);
   }
   75% {
-    transform: translateX(20px) rotate(15deg);
+    transform: translateX(-5px);
   }
   100% {
-    transform: translateX(0) rotate(0deg);
+    transform: translateX(0);
   }
 }
 
-.animate-shuffle-card {
-  animation: shuffleCard 1.5s ease-in-out infinite;
+.shuffle-animation {
+  animation: rumble 0.3s ease-in-out infinite;
 }
